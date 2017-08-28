@@ -7,7 +7,7 @@ to generate a sine sound of frequency with duration.
 
 import sys
 try:
-    from PYSINE import *
+    from pysine import *
 except:
     from . import *
 
