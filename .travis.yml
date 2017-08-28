@@ -46,7 +46,7 @@ before_install:
 install:
   # avoid to get cancelled because of very long tests
   # we get issues with building numpy etc if we do not include those in the next line
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pyaudio numpy
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
   - source activate test-environment
   - conda install --yes -c conda-forge coveralls
   - python setup.py install
