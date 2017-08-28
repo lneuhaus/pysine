@@ -13,14 +13,13 @@ class PySine(object):
     def __init__(self):
         self.pyaudio = PyAudio()
         try:
-            raise
             self.stream = self.pyaudio.open(
                 format=self.pyaudio.get_format_from_width(1),
                 channels=1,
                 rate=int(self.BITRATE),
                 output=True)
         except:
-            logger.warning("No audio output is available. Mocking audio stream to simulate one...")
+            logger.error("No audio output is available. Mocking audio stream to simulate one...")
             # output stream simulation with magicmock
             try:
                 from mock import MagicMock
