@@ -9,7 +9,9 @@
 [![join chat on gitter](https://badges.gitter.im/JoinChat.svg "Join chat on gitter")](https://gitter.im/lneuhaus/pysine)
 [![License](https://img.shields.io/pypi/l/pysine.svg)](https://github.com/lneuhaus/pysine/blob/master/LICENSE)
 
-PySine allows to play single tones on the PyAudio sound output in real time
+PySine allows to play single tones on the PyAudio sound output in real time.
+
+This is useful e.g. for debugging, if
 
 
 
@@ -27,11 +29,18 @@ git clone hyyps://www.github.com/lneuhaus/pysine
 python setup.py develop
 ```
 
-## Quick start
+## Quick start / usage example:
+From the command line:
 ```
 python -m pysine frequency duration
 ```
 A sine sound with the desired properties should be heard.
+
+Within a python code block:
+```
+from pysine import sine
+sine(frequency=440.0, duration=1.0)  # plays a 1s sine wave at 440 Hz
+```
 
 ## Issues
 Please report all problems or wishes as new issues on [this page](https://github.com/lneuhaus/pysine/issues), so we can fix it and improve the future user experience.
