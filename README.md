@@ -4,7 +4,7 @@
 [![code coverage](https://codecov.io/github/lneuhaus/pysine/coverage.svg?branch=master "Code coverage")](https://codecov.io/gh/lneuhaus/pysine)
 [![PySine python versions on PyPI](https://img.shields.io/pypi/pyversions/pysine.svg)](https://pypi.python.org/pypi/pysine/)
 [![PySine version on PyPI](https://img.shields.io/pypi/v/pysine.svg "PySine on PyPI")](https://pypi.python.org/pypi/pysine/)
-[![Documentation Status](https://readthedocs.org/projects/pysine/badge/?version=latest)](http://pysine.readthedocs.io/en/latest/?badge=latest)
+[comment]: <> ([![Documentation Status](https://readthedocs.org/projects/pysine/badge/?version=latest)](http://pysine.readthedocs.io/en/latest/?badge=latest))
 [![License](https://img.shields.io/pypi/l/pysine.svg)](https://github.com/lneuhaus/pysine/blob/master/LICENSE)
 
 PySine allows to play single tones on the PyAudio sound output in real time.
