@@ -63,15 +63,11 @@ after_script:
   - codecov
 
 # automatic release when a new tag is created needs a few preliminary steps...
+# create a Readme.rst for PyPI
 before_deploy:
-  # create a Readme.rst for PyPI
-  # make an executable for linux
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.4" ]]; then
-      source activate test-environment
-      conda install pandoc
-      pip install pyinstaller
-      pandoc --from=markdown --to=rst --output=README.rst README.md
-    fi
+  - source activate test-environment
+  - conda install pandoc
+  - pandoc --from=markdown --to=rst --output=README.rst README.md
 
 deploy:
   provider: pypi
