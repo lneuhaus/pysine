@@ -5,8 +5,7 @@
 # lots of stuff here comes from https://gist.github.com/dan-blanchard/7045057
 
 env:
-- AUTOCORRETPEP8=0 DISPLAY=:99.0
-# REDPITAYA variables are defined in travis account (encrypted)
+- DISPLAY=:99.0
 
 language: python
 # nosetests is only executed for 2.7, 3.5 and 3.6, but we still test the
@@ -47,27 +46,19 @@ before_install:
 install:
   # avoid to get cancelled because of very long tests
   # we get issues with building numpy etc if we do not include those in the next line
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy scipy paramiko pandas nose pip pyqt qtpy
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
   - source activate test-environment
-  - if [[ "$TRAVIS_PYTHON_VERSION" != "3.3" ]]; then
-      conda install --yes -c conda-forge coveralls;
-    fi
-  # overwrite default global config file with a custom one for travis (allows slower communication time)
-  - \cp ./travis_global_config.yml ./pyrpl/config/global_config.yml
+  - conda install --yes -c conda-forge coveralls
   - python setup.py install
   # packages for coverage reports
   - pip install coverage codecov
 
 # Run test
 script:
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]] || [[ "$TRAVIS_PYTHON_VERSION" == "3.4" ]] || [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-      nosetests;
-    fi
+  - nosetests
 
 after_script:
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]] || [[ "$TRAVIS_PYTHON_VERSION" == "3.4" ]] || [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-      codecov;
-    fi
+  - codecov
 
 # automatic release when a new tag is created needs a few preliminary steps...
 before_deploy:
@@ -78,7 +69,6 @@ before_deploy:
       conda install pandoc
       pip install pyinstaller
       pandoc --from=markdown --to=rst --output=README.rst README.md
-      pyinstaller pyrpl.spec
     fi
 
 deploy:
