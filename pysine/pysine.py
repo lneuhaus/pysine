@@ -1,5 +1,10 @@
-import numpy as np
 from pyaudio import PyAudio
+from . import logger
+try:
+    import numpy as np
+except:
+    logger.warning("Could not load numpy. The program code will be much slower without it. ")
+    from math import sin, pi
 
 
 class PySine(object):
@@ -20,9 +25,15 @@ class PySine(object):
 
     def sine(self, frequency=440.0, duration=1.0):
         points = int(self.BITRATE * duration)
-        times = np.linspace(0, duration, points, endpoint=False)
-        data = np.array((np.sin(times*frequency*2*np.pi) + 1.0)*127.5, dtype=np.int8)
-        self.stream.write(data.tostring())
+        try:
+            times = np.linspace(0, duration, points, endpoint=False)
+            data = np.array((np.sin(times*frequency*2*np.pi) + 1.0)*127.5, dtype=np.int8).tostring()
+        except:  # do it without numpy
+            data = ''
+            omega = 2.0*pi*frequency/self.BITRATE
+            for i in range(points):
+                data += chr(int(127.5*(1.0+sin(float(i)*omega))))
+        self.stream.write(data)
 
 PYSINE = PySine()
 
