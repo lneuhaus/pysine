@@ -23,3 +23,4 @@ if __name__ == '__main__':
             kwargs['frequency'] = float(sys.argv[1])
         print("Calling sine(%s)" % kwargs)
         sine(**kwargs)
+
