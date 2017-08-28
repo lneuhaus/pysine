@@ -9,8 +9,9 @@
 
 PySine allows to play single tones on the PyAudio sound output in real time.
 
-This is useful e.g. for debugging, if
-
+This is always useful when no text output is available, for example for
+debugging multi-thread programs or calls to object destructors by Python's
+garbage collector.
 
 
 ## Installation
