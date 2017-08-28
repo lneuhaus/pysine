@@ -40,7 +40,7 @@ requirements = ['pyaudio',
                 'numpy',
                 'nose>=1.0']
 if sys.version_info >= (3,4):  # python version dependencies
-    requirements += ['unittest']
+    requirements += []  # mock is part of unittest is part of standard library
 else:  # python 2.7
     requirements += ['mock']
 
