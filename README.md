@@ -22,17 +22,19 @@ pip install pysine
 or
 
 ```
-cd DESIRED_SOUCE_CODE_DIRECTORY
+cd DESIRED_SOURCE_CODE_DIRECTORY
 git clone https://www.github.com/lneuhaus/pysine
-python setup.py develop
+cd pysine
+python setup.py install
 ```
 
 ## Quick start / usage example:
+
 From the command line:
 ```
-python -m pysine frequency duration
+python -m pysine 440.0 3
 ```
-A sine sound with the desired properties should be heard.
+The sound of a 880-Hz sine wave should be heard for a duration of 3 seconds.
 
 Within a python code block:
 ```
@@ -46,10 +48,10 @@ Please report all problems or wishes as new issues on [this page](https://github
 ## Unit test
 Use nosetests for unit tests:
 ```
-cd package_code_directory
+cd PACKAGE_SOURCE_CODE_DIRECTORY
 nosetests
 ```
-All tests should take about 3 minutes and finish without failures or errors. If there are errors, please report the console output as an issue (see the section "Issues" below for detailed explanations).
+If there are errors, please report the console output as an issue (see the section “Issues” below for detailed explanations) with as much detail on your test environment (operating system, hardware specifics, ...) as possible.
 
 ## License
 Please read our license file [LICENSE](https://github.com/lneuhaus/pysine/blob/master/LICENSE) for more information.

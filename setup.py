@@ -67,7 +67,7 @@ def find_packages():
 
 setup(name='pysine',
       version=version,
-      description='Allows to play single tones on the PyAudio sound output in real time',
+      description='Allows to play single tones on the PyAudio sound output in real time.',
       long_description=long_description,
       author='Leonhard Neuhaus',
       author_email='leonhard.neuhaus@gmail.com',
