@@ -1,5 +1,5 @@
-from pysine import sine
 from time import time
+from pysine import sine
 
 
 class TestSine(object):
@@ -13,5 +13,5 @@ class TestSine(object):
         sine(duration*1000.0, duration)
         t1 = time()
         diff = t1 - t0 -duration
-        assert diff >= -0.05, diff
-        assert diff <= 0.05, diff
+        assert diff >= -0.1, diff
+        assert diff <= 0.1, diff

@@ -40,11 +40,9 @@ requirements = ['pyaudio',
                 'numpy',
                 'nose>=1.0']
 if sys.version_info >= (3,4):  # python version dependencies
-    requirements += []
+    requirements += ['unittest']
 else:  # python 2.7
-    requirements += []
-if os.environ.get('READTHEDOCS') == 'True':
-    requirements += ['mock']  # mock is needed on readthedocs.io to mock PyQt5
+    requirements += ['mock']
 
 try:
     import pypandoc
