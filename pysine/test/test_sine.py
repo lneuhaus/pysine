@@ -11,7 +11,7 @@ class TestSine(object):
             t1 = time()
             diff = t1 - t0 - duration
             print(diff)
-            assert diff < 1.0, diff
+            assert diff < 10.0, diff
 
     def test_sine(self):
         return
