@@ -5,12 +5,13 @@ import os
 class TestSine(object):
 
     def test_duration_offset(self):
-        t0 = time()
-        sine(1000, 0.000)
-        t1 = time()
-        diff = t1 - t0
-        print(diff)
-        assert diff < 1.0, diff
+        for duration in [0.0, 1.0]:
+            t0 = time()
+            sine(1000, duration)
+            t1 = time()
+            diff = t1 - t0 - duration
+            print(diff)
+            assert diff < 1.0, diff
 
     def test_sine(self):
         return
