@@ -75,8 +75,8 @@ pipeline {
         stage('Unit tests') {
             steps {
                 sh  ''' source activate ${BUILD_TAG}
-                        nosetests --verbose --junit-xml reports/unit_tests.xml
-                    '''
+                nosetests --with-xunit --xunit-file=reports/xunit.xml
+                '''
             }
             post {
                 always {
