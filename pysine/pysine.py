@@ -1,5 +1,11 @@
+#set up loggers
+import logging
+logging.basicConfig()
+logger = logging.getLogger(name=__name__)
+# only show errors or warnings until userdefine log level is set up
+logger.setLevel(logging.INFO)
+
 from pyaudio import PyAudio
-from . import logger
 try:
     import numpy as np
 except:
@@ -54,5 +60,4 @@ PYSINE = PySine()
 
 def sine(frequency=440.0, duration=1.0):
     return PYSINE.sine(frequency=frequency, duration=duration)
-
 

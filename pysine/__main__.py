@@ -1,20 +1,9 @@
-"""
-Script to launch pysine from the command line.
-
-Type python -m pysine frequency duration
-to generate a sine sound of frequency with duration.
-"""
-
 import sys
-try:
-    from pysine import *
-except:
-    from . import *
+from pysine import sine
 
 if __name__ == '__main__':
     if len(sys.argv) > 3:
-        print("Wrong number of arguments. ")
-        print("Usage: python -m pysine frequency duration")
+        print("Wrong number of pysine frequency duration")
     else:
         kwargs = dict()
         if len(sys.argv) > 2:
@@ -23,4 +12,3 @@ if __name__ == '__main__':
             kwargs['frequency'] = float(sys.argv[1])
         print("Calling sine(%s)" % kwargs)
         sine(**kwargs)
-

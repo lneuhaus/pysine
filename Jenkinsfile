@@ -27,7 +27,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh  ''' conda create --yes -n ${BUILD_TAG} python nose coverage
+                sh  ''' conda create --yes -n ${BUILD_TAG} python nose coverage numpy
                         source activate ${BUILD_TAG}
                         conda install --yes -c conda-forge radon
                         python setup.py install
@@ -46,7 +46,7 @@ pipeline {
                     '''
                 echo "Test coverage"
                 sh  ''' source activate ${BUILD_TAG}
-                        coverage run pysine/pysine.py 1 1 2 3
+                        coverage run pysine 1 1 2 3
                         python -m coverage xml -o reports/coverage.xml
                     '''
                 echo "Style check"
