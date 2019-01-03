@@ -29,6 +29,7 @@ pipeline {
                 echo "Building virtualenv"
                 sh  ''' conda create --yes -n ${BUILD_TAG} python nose
                         source activate ${BUILD_TAG}
+                        conda install --yes -c conda-forge radon
                         python setup.py install
                     '''
             }
@@ -86,6 +87,22 @@ pipeline {
             }
         }
 
+        stage('Acceptance tests') {
+            steps {
+                sh  ''' source activate ${BUILD_TAG}
+                        behave -f=formatters.cucumber_json:PrettyCucumberJSONFormatter -o ./reports/acceptance.json || true
+                    '''
+            }
+            post {
+                always {
+                    cucumber (buildStatus: 'SUCCESS',
+                    fileIncludePattern: '**/*.json',
+                    jsonReportDirectory: './reports/',
+                    parallelTesting: true,
+                    sortingMethod: 'ALPHABETICAL')
+                }
+            }
+        }
 
         stage('Build package') {
             when {
