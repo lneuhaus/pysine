@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            dockerfile true
+            args '-p 2222 2222'
+            //args '-p 2222 2222 -v ~/jenkins-docker:/var/jenkins_home'
+        }
+    }
 
     triggers {
         pollSCM('*/1 * * * 1-5')
@@ -17,6 +23,12 @@ pipeline {
     }
 
     stages {
+
+        stage('Test docker') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
 
         stage ("Code pull"){
             steps{
