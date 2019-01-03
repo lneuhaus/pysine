@@ -14,7 +14,7 @@ class TestSine(object):
             assert diff < 1.0, diff
 
     def test_sine(self):
-        return
+        # return
         for duration in [0.25, 0.5, 1.0, 2.0]:
             yield self.assert_excess_duration, duration
             yield self.assert_excess_duration_commandline, duration
