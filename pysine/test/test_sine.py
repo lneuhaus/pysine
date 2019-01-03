@@ -5,7 +5,7 @@ import os
 class TestSine(object):
 
     def test_sine(self):
-        for duration in [0.25, 0.5, 1.0, 2.0]:
+        for duration in [0.25, 0.5, 1.0, 2.0][:1]:
             yield self.assert_excess_duration, duration
             yield self.assert_excess_duration_commandline, duration
 
