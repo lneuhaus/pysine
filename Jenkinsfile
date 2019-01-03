@@ -27,7 +27,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh  ''' conda create --yes -n ${BUILD_TAG} python nosetests
+                sh  ''' conda create --yes -n ${BUILD_TAG} python nose
                         source activate ${BUILD_TAG}
                         python setup.py install
                     '''
