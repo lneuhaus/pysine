@@ -1,4 +1,5 @@
 pipeline {
+
     agent {
         docker {
             dockerfile true
@@ -29,6 +30,7 @@ pipeline {
                 sh 'node --version'
                 sh 'svn --version'
             }
+        }
 
         stage ("Code pull"){
             steps{
