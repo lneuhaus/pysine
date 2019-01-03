@@ -13,7 +13,7 @@ class TestSine(object):
         t0 = time()
         sine(duration*1000.0, duration)
         t1 = time()
-        diff = t1 - t0 -duration
+        diff = t1 - t0 - duration
         assert diff >= -0.1, diff
         assert diff <= 0.1, diff
 
@@ -21,6 +21,6 @@ class TestSine(object):
         t0 = time()
         os.system("python -m pysine %f %f" % (duration*1000.0, duration))
         t1 = time()
-        diff = t1 - t0 -duration
+        diff = t1 - t0 - duration
         assert diff >= -0.1, diff
         assert diff <= 1.0, diff
