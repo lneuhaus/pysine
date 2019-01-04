@@ -1,6 +1,7 @@
 pipeline {
 
-    agent {
+    agent any
+    //{
 
         any
         //docker {
@@ -8,7 +9,7 @@ pipeline {
         //    args '-p 2222 2222'
         //    //args '-p 2222 2222 -v ~/jenkins-docker:/var/jenkins_home'
         //}
-    }
+    //}
 
     triggers {
         pollSCM('*/1 * * * 1-5')
