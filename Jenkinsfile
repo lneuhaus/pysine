@@ -1,9 +1,8 @@
 pipeline {
 
-    agent
-    {
-
-        any
+    //agent
+    //{
+    //  any
         //docker {
         //    image 'ubuntu:latest'
         //    args '-p 2222 2222'
