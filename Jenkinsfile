@@ -1,11 +1,13 @@
 pipeline {
 
     agent {
-        docker {
-            dockerfile true
-            args '-p 2222 2222'
-            //args '-p 2222 2222 -v ~/jenkins-docker:/var/jenkins_home'
-        }
+
+        any
+        //docker {
+        //    image 'ubuntu:latest'
+        //    args '-p 2222 2222'
+        //    //args '-p 2222 2222 -v ~/jenkins-docker:/var/jenkins_home'
+        //}
     }
 
     triggers {
@@ -28,6 +30,13 @@ pipeline {
         stage('Test docker') {
             steps {
                 sh 'node --version'
+                sh 'svn --version'
+            }
+        }
+
+        stage('Install miniconda') {
+            steps {
+
                 sh 'svn --version'
             }
         }
