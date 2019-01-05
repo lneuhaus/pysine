@@ -25,7 +25,7 @@ RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p $CONDA_DIR
 ENV PATH="$CONDA_DIR/bin:$PATH"
 
 # Add conda-forge as systemwide channels
-RUN $CONDA_DIR/bin/conda config --add channels conda-forge --system
+#RUN $CONDA_DIR/bin/conda config --add channels conda-forge --system
 
 # Clean up miniconda installation files
 WORKDIR /
