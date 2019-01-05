@@ -1,5 +1,9 @@
 pipeline {
-    agent { dockerfile { args '-u root' } }
+    agent { dockerfile {
+                args '-u root'
+                additionalBuildArgs  '--build-arg PYTHON_VERSION=3'
+            }
+    }
 
     triggers { pollSCM('*/1 * * * 1-5') }
 
