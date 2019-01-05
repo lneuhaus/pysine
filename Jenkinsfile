@@ -1,13 +1,7 @@
 pipeline {
-    agent {
-        dockerfile {
-            args '-u root'
-        }
-    }
+    agent { dockerfile { args '-u root' } }
 
-    triggers {
-        pollSCM('*/1 * * * 1-5')
-    }
+    triggers { pollSCM('*/1 * * * 1-5') }
 
     options {
         skipDefaultCheckout(true)
@@ -16,12 +10,11 @@ pipeline {
         timestamps()
     }
 
-    //environment {
-    //
-    //}
+    environment {
+        PYTHON_VERSION = "3"
+    }
 
     stages {
-
         stage('Test docker environment') {
             steps {
                 sh  ''' python -V
