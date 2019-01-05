@@ -38,6 +38,8 @@ pipeline {
                 sh  ''' source activate
                         python -V
                         conda env export
+                        echo $USER
+                        groups
                         id
                     '''
             }
