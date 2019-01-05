@@ -28,7 +28,6 @@ ENV PATH="$CONDA_DIR/bin:$PATH"
 # install desired python version and additional packages
 RUN conda install --yes python=$PYTHON_VERSION nose coverage
 
-
 # Clean up miniconda installation files
 WORKDIR /
 RUN rm -rf /tmp/miniconda
