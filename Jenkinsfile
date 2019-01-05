@@ -39,6 +39,7 @@ pipeline {
                         python -V
                         conda env export
                         echo $USER
+                        whoami
                         groups
                         id
                     '''
