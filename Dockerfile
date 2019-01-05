@@ -26,7 +26,7 @@ RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p $CONDA_DIR
 ENV PATH="$CONDA_DIR/bin:$PATH"
 
 # install desired python version and additional packages
-RUN conda install --yes python=$PYTHON_VERSION nose coverage numpy
+RUN conda install --yes python=$PYTHON_VERSION nose coverage numpy pyaudio
 #RUN conda install --yes -c conda-forge radon
 RUN pip install radon
 
