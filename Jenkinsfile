@@ -28,15 +28,14 @@ pipeline {
         timestamps()
     }
 
-    environment {
-    }
+    //environment {
+    //
+    //}
 
     stages {
 
         stage('Test docker environment') {
             steps {
-                    //svn --version
-                    //node --version
                 sh  ''' python -V
                         echo $USER
                         groups
@@ -54,12 +53,6 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                /*sh  ''' conda create --yes -n ${BUILD_TAG} python nose coverage numpy
-                        source activate ${BUILD_TAG}
-                        conda install --yes -c conda-forge radon
-                        python setup.py install
-                    '''
-                */
                 sh ''' conda install python nose coverage numpy
                        conda install --yes -c conda-forge radon
                        python setup.py install

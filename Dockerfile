@@ -8,7 +8,6 @@ LABEL maintainer "pyrpl.readthedocs.io@gmail.com"
 USER root
 
 ARG CONDA_DIR="/opt/conda"
-ARG PYTHON_VERSION="3"
 
 # setup ubuntu
 RUN apt update --yes
