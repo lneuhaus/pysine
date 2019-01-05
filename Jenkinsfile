@@ -31,10 +31,14 @@ pipeline {
 
     stages {
 
-        stage('Test docker') {
+        stage('Test docker environment') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
+                sh  ''' svn --version
+                        node --version
+                        source activate
+                        python -V
+                        conda env export
+                    '''
             }
         }
 
