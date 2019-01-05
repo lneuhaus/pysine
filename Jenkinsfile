@@ -38,6 +38,7 @@ pipeline {
                 sh  ''' source activate
                         python -V
                         conda env export
+                        id
                     '''
             }
         }
