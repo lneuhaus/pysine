@@ -29,7 +29,6 @@ pipeline {
     }
 
     environment {
-      PATH="/var/lib/jenkins/miniconda3/bin:$PATH"
     }
 
     stages {
@@ -38,9 +37,7 @@ pipeline {
             steps {
                     //svn --version
                     //node --version
-                sh  ''' source activate
-                        python -V
-                        conda env export
+                sh  ''' python -V
                         echo $USER
                         groups
                         id
@@ -57,11 +54,16 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh  ''' conda create --yes -n ${BUILD_TAG} python nose coverage numpy
+                /*sh  ''' conda create --yes -n ${BUILD_TAG} python nose coverage numpy
                         source activate ${BUILD_TAG}
                         conda install --yes -c conda-forge radon
                         python setup.py install
                     '''
+                */
+                sh ''' conda install python nose coverage numpy
+                       conda install --yes -c conda-forge radon
+                       python setup.py install
+                   '''
             }
         }
 
