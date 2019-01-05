@@ -1,5 +1,7 @@
 pipeline {
-    agent {
+    agent any
+
+    /*{
         // Equivalent to "docker build -f Dockerfile --build-arg version=1.0.2
         dockerfile {
             //filename 'Dockerfile'
@@ -8,7 +10,7 @@ pipeline {
             //additionalBuildArgs  '--build-arg CONDA_DIR="/opt/conda"'
             //args '-v /tmp:/tmp -p 2222:2222'
         }
-    }
+    }*/
 
     triggers {
         pollSCM('*/1 * * * 1-5')
