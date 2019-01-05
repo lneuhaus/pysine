@@ -2,7 +2,7 @@ pipeline {
     agent {
         // Equivalent to "docker build -f Dockerfile --build-arg version=1.0.2
         dockerfile {
-            filename 'Dockerfile'
+            //filename 'Dockerfile'
             //dir 'build'
             //label 'my-defined-label'
             //additionalBuildArgs  '--build-arg CONDA_DIR="/opt/conda"'
