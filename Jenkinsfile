@@ -42,12 +42,6 @@ pipeline {
             }
         }
 
-        stage('Install miniconda') {
-            steps {
-                 sh 'svn --version'
-            }
-        }
-
         stage ("Code pull"){
             steps{
                 checkout scm
