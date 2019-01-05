@@ -1,7 +1,10 @@
 pipeline {
     //agent any
     agent {
-        docker { image 'testtest' }
+        docker {
+            image 'testtest'
+            args '-u root'
+        }
     }
     /*{
         // Equivalent to "docker build -f Dockerfile --build-arg version=1.0.2
@@ -39,7 +42,6 @@ pipeline {
                         python -V
                         conda env export
                         echo $USER
-                        whoami
                         groups
                         id
                     '''
