@@ -1,6 +1,8 @@
 pipeline {
-    agent any
-
+    //agent any
+    agent {
+        docker { image 'testtest' }
+    }
     /*{
         // Equivalent to "docker build -f Dockerfile --build-arg version=1.0.2
         dockerfile {
@@ -38,8 +40,7 @@ pipeline {
 
         stage('Install miniconda') {
             steps {
-
-                sh 'svn --version'
+                 sh 'svn --version'
             }
         }
 
