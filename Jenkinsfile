@@ -38,9 +38,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh ''' //conda install --yes python nose coverage  // already done in dockerfile
-                       //conda install --yes -c conda-forge radon  // already done in dockerfile
-                       python setup.py install
+                sh ''' python setup.py install
                    '''
             }
         }
@@ -48,20 +46,17 @@ pipeline {
         stage('Static code metrics') {
             steps {
                 echo "Raw metrics"
-                sh  ''' source activate ${BUILD_TAG}
-                        radon raw --json pysine > raw_report.json
+                sh  ''' radon raw --json pysine > raw_report.json
                         radon cc --json pysine > cc_report.json
                         radon mi --json pysine > mi_report.json
                         sloccount --duplicates --wide pysine > sloccount.sc
                     '''
                 echo "Test coverage"
-                sh  ''' source activate ${BUILD_TAG}
-                        coverage run pysine 1 1 2 3
+                sh  ''' coverage run pysine 1 1 2 3
                         python -m coverage xml -o reports/coverage.xml
                     '''
                 echo "Style check"
-                sh  ''' source activate ${BUILD_TAG}
-                        pylint pysine || true
+                sh  ''' pylint pysine || true
                     '''
             }
             post{
@@ -85,9 +80,8 @@ pipeline {
 
         stage('Unit tests') {
             steps {
-                sh  ''' source activate ${BUILD_TAG}
-                nosetests --with-xunit --xunit-file=reports/xunit.xml
-                '''
+                sh  ''' nosetests --with-xunit --xunit-file=reports/xunit.xml
+                    '''
             }
             post {
                 always {
@@ -104,8 +98,7 @@ pipeline {
                 }
             }
             steps {
-                sh  ''' source activate ${BUILD_TAG}
-                        python setup.py bdist_wheel
+                sh  ''' python setup.py bdist_wheel
                     '''
             }
             post {
@@ -119,15 +112,15 @@ pipeline {
         // stage("Deploy to PyPI") {
         //     steps {
         //         sh """twine upload dist/*
-        //         """
+        //            """
         //     }
         // }
     }
 
     post {
-        always {
-            sh 'conda remove --yes -n ${BUILD_TAG} --all'
-        }
+        //always {
+        //    sh 'conda remove --yes -n ${BUILD_TAG} --all'
+        //}
         failure {
             emailext (
                 subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
