@@ -38,8 +38,8 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh ''' conda install --yes python nose coverage
-                       conda install --yes -c conda-forge radon
+                sh ''' //conda install --yes python nose coverage  // already done in dockerfile
+                       //conda install --yes -c conda-forge radon  // already done in dockerfile
                        python setup.py install
                    '''
             }
