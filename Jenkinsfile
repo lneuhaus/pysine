@@ -1,11 +1,4 @@
 pipeline {
-    //agent any
-    /*agent {
-        docker {
-            image 'testtest'
-            args '-u root'
-        }
-    }*/
     agent {
         dockerfile {
             filename 'Dockerfile'
@@ -49,7 +42,7 @@ pipeline {
         stage('Build environment') {
             steps {
                 echo "Building virtualenv"
-                sh ''' conda install python nose coverage numpy
+                sh ''' conda install python nose coverage
                        conda install --yes -c conda-forge radon
                        python setup.py install
                    '''
