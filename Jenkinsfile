@@ -1,14 +1,4 @@
 pipeline {
-
-    //agent
-    //{
-    //  any
-        //docker {
-        //    image 'ubuntu:latest'
-        //    args '-p 2222 2222'
-        //    //args '-p 2222 2222 -v ~/jenkins-docker:/var/jenkins_home'
-        //}
-    //}
     agent {
         // Equivalent to "docker build -f Dockerfile --build-arg version=1.0.2
         dockerfile {
@@ -19,7 +9,6 @@ pipeline {
             //args '-v /tmp:/tmp -p 2222:2222'
         }
     }
-
 
     triggers {
         pollSCM('*/1 * * * 1-5')
