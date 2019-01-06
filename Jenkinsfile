@@ -1,7 +1,7 @@
 pipeline {
     agent { dockerfile {
                 args '-u root'
-                additionalBuildArgs  '--build-arg PYTHON_VERSION=2'
+                additionalBuildArgs  '--build-arg PYTHON_VERSION="2"'
             }
     }
 
@@ -22,12 +22,11 @@ pipeline {
     */
 
     stages {
-        stage('Test docker environment') {
+        stage('Docker environment diagnostics') {
             steps {
-                sh  ''' python -V
-                        echo $USER
-                        groups
-                        id
+                sh  ''' which python
+                        python -V
+                        echo $PYTHON_VERSION
                     '''
             }
         }
