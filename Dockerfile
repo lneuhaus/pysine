@@ -37,6 +37,9 @@ RUN rm -rf /tmp/miniconda
 # install additional software
 RUN apt-get install --yes sloccount
 
+# auxiliary environment variable
+ENV PYTHON_VERSION=$PYTHON_VERSION
+
 # print a message
 RUN echo "Docker image is up and running...."
 RUN echo $PATH

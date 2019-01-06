@@ -1,7 +1,7 @@
 pipeline {
     agent { dockerfile {
                 args '-u root'
-                additionalBuildArgs  '--build-arg PYTHON_VERSION=3'
+                additionalBuildArgs  '--build-arg PYTHON_VERSION=2'
             }
     }
 
@@ -14,9 +14,12 @@ pipeline {
         timestamps()
     }
 
+    /*
     environment {
-        PYTHON_VERSION = "3"
+        REDPITAYA_HOSTNAME = "root"
+        REDPITAYA_PASSWORD = "root"
     }
+    */
 
     stages {
         stage('Test docker environment') {
