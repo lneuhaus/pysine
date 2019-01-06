@@ -1,7 +1,7 @@
 pipeline {
     agent { dockerfile {
                 args '-u root'
-                additionalBuildArgs  '--build-arg PYTHON_VERSION="2"'
+                additionalBuildArgs  '--build-arg PYTHON_VERSION="3"'
             }
     }
 
