@@ -5,7 +5,7 @@ pipeline {
             }
     }
 
-    triggers { pollSCM('*/1 * * * 1-5') }
+    triggers { pollSCM('*/1 * * * *') }
 
     options {
         skipDefaultCheckout(true)
