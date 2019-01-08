@@ -1,34 +1,5 @@
 #!groovy
 
-pipeline {
-    agent none
-
-    triggers { pollSCM('*/1 * * * *') }
-
-    options {
-        skipDefaultCheckout(true)
-        // Keep the 10 most recent builds
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-        timestamps()
-    }
-
-    /*
-    environment {
-        REDPITAYA_HOSTNAME = "root"
-        REDPITAYA_PASSWORD = "root"
-    }
-    */
-
-    stages {
-        stage('python3') {
-            all_tasks(python_version="3")
-        }
-        stage('python2') {
-            all_tasks(python_version="2")
-        }
-    }
-}
-
 def all_tasks(String python_version="3", String os = "linux") {
     cmd = {
             agent { dockerfile { args '-u root'
@@ -146,3 +117,34 @@ def all_tasks(String python_version="3", String os = "linux") {
     }
     return cmd
 }
+
+
+pipeline {
+    agent none
+
+    triggers { pollSCM('*/1 * * * *') }
+
+    options {
+        skipDefaultCheckout(true)
+        // Keep the 10 most recent builds
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timestamps()
+    }
+
+    /*
+    environment {
+        REDPITAYA_HOSTNAME = "root"
+        REDPITAYA_PASSWORD = "root"
+    }
+    */
+
+    stages {
+        stage('python3') {
+            all_tasks(python_version="3")
+        }
+        stage('python2') {
+            all_tasks(python_version="2")
+        }
+    }
+}
+
