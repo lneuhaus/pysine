@@ -21,13 +21,10 @@ pipeline {
 
     stages {
         stage ("Code pull"){
-            agent { dockerfile { args '-u root'
-                                 additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
+            agent any
             steps{
                 checkout scm
                 stash 'source'
-                sh 'chmod -R +w *'
-                unstash 'source'
                 }}
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
@@ -41,7 +38,7 @@ pipeline {
                 }}
                 stage('Build environment') { steps {
                     echo "Building virtualenv"
-                    unstash 'source'
+                    //unstash 'source'
                     sh 'python setup.py install'
                 }}
                 stage('Static code metrics') { steps {
@@ -78,7 +75,7 @@ pipeline {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
             steps {
-                unstash 'source'
+                //unstash 'source'
                 sh 'python setup.py install'
                 sh 'nosetests --with-xunit --xunit-file=reports/xunit.xml' }
             post { always {
