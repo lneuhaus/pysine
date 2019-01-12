@@ -91,7 +91,7 @@ pipeline {
                 //unstash 'source'
                 sh 'python setup.py install'
                 sh  ''' python setup.py bdist_wheel
-                        //twine upload dist/*
+                        # twine upload dist/*
                     ''' }
             post { always {
                 // Archive unit tests for the future
