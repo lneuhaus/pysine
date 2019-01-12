@@ -89,7 +89,8 @@ pipeline {
                     sh 'python setup.py install'
                     sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
                 post { always { // Archive unit tests for the future
-                    junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}}
+                    junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}
+        }}
 
         stage('Build and deploy package') {
             agent { dockerfile { args '-u root'
