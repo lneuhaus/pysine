@@ -71,7 +71,7 @@ pipeline {
                 }}}
         }}
 
-        stage('Unit tests') { stages {
+        stage('Unit tests') { parallel {
             stage('Python 3') {
                 agent { dockerfile { args '-u root'
                                      additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
