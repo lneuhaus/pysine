@@ -21,10 +21,9 @@ pipeline {
 
     stages {
         stage ("Code pull"){
-                    steps{
-                        checkout scm
-                    }
-                }
+            agent any
+            steps{
+                checkout scm }}
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
