@@ -39,7 +39,8 @@ pipeline {
                 stage('Build environment') { steps {
                     echo "Building virtualenv"
                     sh ''' python setup.py install
-                       ''' }}
+                       '''
+                }}
                 stage('Static code metrics') { steps {
                     echo "Raw metrics"
                     sh  ''' radon raw --json pysine > raw_report.json
@@ -54,7 +55,8 @@ pipeline {
                     echo "Style check"
                     sh  ''' pylint pysine || true
                         '''
-                }} post{ always { step(
+                }
+                post{ always { step(
                     [ $class: 'CoberturaPublisher',
                                autoUpdateHealth: false,
                                autoUpdateStability: false,
@@ -66,7 +68,7 @@ pipeline {
                                onlyStable: false,
                                sourceEncoding: 'ASCII',
                                zoomCoverageChart: false])
-                }}
+                }}}
         }}
 
         stage('Unit tests') {
