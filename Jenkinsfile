@@ -77,6 +77,10 @@ pipeline {
                                      additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
                 steps {
                     //unstash 'source'
+                    sh  ''' which python
+                            python -V
+                            echo $PYTHON_VERSION
+                            '''
                     sh 'python setup.py install'
                     sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
                 post { always { // Archive unit tests for the future
@@ -86,6 +90,10 @@ pipeline {
                                      additionalBuildArgs  '--build-arg PYTHON_VERSION=2' }}
                 steps {
                     //unstash 'source'
+                    sh  ''' which python
+                            python -V
+                            echo $PYTHON_VERSION
+                            '''
                     sh 'python setup.py install'
                     sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
                 post { always { // Archive unit tests for the future
