@@ -25,6 +25,7 @@ pipeline {
             steps{
                 checkout scm
                 stash 'source'
+                sh 'rm .coverage'
                 unstash 'source'
                 }}
         stage('PRE-UNIT-TEST') {
