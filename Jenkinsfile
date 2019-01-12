@@ -21,7 +21,8 @@ pipeline {
 
     stages {
         stage ("Code pull"){
-            agent any
+            agent { dockerfile { args '-u root'
+                                 additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
             steps{
                 checkout scm
                 stash 'source'
