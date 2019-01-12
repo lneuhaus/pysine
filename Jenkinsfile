@@ -88,7 +88,7 @@ pipeline {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS'}}
             steps {
-                unstash 'source'
+                //unstash 'source'
                 sh 'python setup.py install'
                 sh  ''' python setup.py bdist_wheel
                         //twine upload dist/*
