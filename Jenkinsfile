@@ -5,7 +5,7 @@ pipeline {
     triggers { pollSCM('*/1 * * * *') }
 
     options {
-        // skipDefaultCheckout(true)
+        // skipDefaultCheckout(true)  // rather do the checkout in all stages
         // Keep the 10 most recent builds
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timestamps()
@@ -20,12 +20,13 @@ pipeline {
     agent none
 
     stages {
-        stage ("Code pull"){
-            agent any
-            steps{
-                checkout scm
-                stash 'source'
-                }}
+        // git checkout is now done by default
+        //stage ("Code pull"){
+        //    agent any
+        //    steps{
+        //      checkout scm
+        //        stash 'source'
+        //        }}
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
