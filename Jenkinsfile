@@ -71,16 +71,25 @@ pipeline {
                 }}}
         }}
 
-        stage('Unit tests') {
-            agent { dockerfile { args '-u root'
-                                 additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
-            steps {
-                //unstash 'source'
-                sh 'python setup.py install'
-                sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
-            post { always {
-                // Archive unit tests for the future
-                junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}
+        stage('Unit tests') { stages {
+            stage('Python 3') {
+                agent { dockerfile { args '-u root'
+                                     additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
+                steps {
+                    //unstash 'source'
+                    sh 'python setup.py install'
+                    sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
+                post { always { // Archive unit tests for the future
+                    junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}
+            stage('Python 2') {
+                agent { dockerfile { args '-u root'
+                                     additionalBuildArgs  '--build-arg PYTHON_VERSION=2' }}
+                steps {
+                    unstash 'source'
+                    sh 'python setup.py install'
+                    sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
+                post { always { // Archive unit tests for the future
+                    junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}}
 
         stage('Build and deploy package') {
             agent { dockerfile { args '-u root'
