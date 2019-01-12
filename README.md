@@ -13,6 +13,10 @@ debugging multi-thread programs or calls to object destructors by Python's
 garbage collector.
 
 
+## Jenkins
+This branch contains the version of pysine that uses Jenkins instead of Travis CI for unit testing.
+
+
 ## Installation
 Either
 ```
