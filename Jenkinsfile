@@ -25,7 +25,6 @@ pipeline {
                         checkout scm
                     }
                 }
-
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
@@ -94,8 +93,8 @@ pipeline {
                 // Archive unit tests for the future
                 archiveArtifacts allowEmptyArchive: true, artifacts: 'dist/*whl', fingerprint: true}}}
         }
-        post { agent any
-            failure {
+        post { failure {
+                agent any
                 emailext (
                     subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                     body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
