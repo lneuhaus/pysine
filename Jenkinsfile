@@ -23,7 +23,9 @@ pipeline {
         stage ("Code pull"){
             agent any
             steps{
-                checkout scm }}
+                checkout scm
+                stash 'source'
+                }}
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
@@ -36,8 +38,8 @@ pipeline {
                 }}
                 stage('Build environment') { steps {
                     echo "Building virtualenv"
-                    sh ''' python setup.py install
-                       '''
+                    unstash 'source'
+                    sh 'python setup.py install'
                 }}
                 stage('Static code metrics') { steps {
                     echo "Raw metrics"
@@ -73,8 +75,9 @@ pipeline {
             agent { dockerfile { args '-u root'
                                  additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
             steps {
-                sh  ''' nosetests --with-xunit --xunit-file=reports/xunit.xml
-                    ''' }
+                unstash 'source'
+                sh 'python setup.py install'
+                sh 'nosetests --with-xunit --xunit-file=reports/xunit.xml' }
             post { always {
                 // Archive unit tests for the future
                 junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}
@@ -85,6 +88,8 @@ pipeline {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS'}}
             steps {
+                unstash 'source'
+                sh 'python setup.py install'
                 sh  ''' python setup.py bdist_wheel
                         //twine upload dist/*
                     ''' }
@@ -93,12 +98,11 @@ pipeline {
                 archiveArtifacts allowEmptyArchive: true, artifacts: 'dist/*whl', fingerprint: true}}}
         }
         post { failure {
-                agent any
-                emailext (
-                    subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                    body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                             <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider']]) }
+            emailext (
+                subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]) }
     }
 }
 
