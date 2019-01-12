@@ -77,7 +77,7 @@ pipeline {
             steps {
                 //unstash 'source'
                 sh 'python setup.py install'
-                sh 'nosetests --with-xunit --xunit-file=reports/xunit.xml' }
+                sh 'nosetests --with-xunit --xunit-file=reports/unit_tests.xml' }
             post { always {
                 // Archive unit tests for the future
                 junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml' }}}
