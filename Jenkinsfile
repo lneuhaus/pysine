@@ -24,7 +24,8 @@ pipeline {
             agent any
             steps{
                 checkout scm
-                stash 'sourcestash'
+                stash 'source'
+                unstash 'source'
                 }}
         stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
@@ -38,7 +39,7 @@ pipeline {
                 }}
                 stage('Build environment') { steps {
                     echo "Building virtualenv"
-                    unstash 'sourcestash'
+                    unstash 'source'
                     sh 'python setup.py install'
                 }}
                 stage('Static code metrics') { steps {
