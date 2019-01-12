@@ -26,51 +26,50 @@ pipeline {
                     }
                 }
 
-        stage('PRE-UNIT-TEST') { stages {
+        stage('PRE-UNIT-TEST') {
             agent { dockerfile { args '-u root'
-                                 additionalBuildArgs  '--build-arg PYTHON_VERSION=3'
-            }}
+                                 additionalBuildArgs  '--build-arg PYTHON_VERSION=3' }}
+            stages {
+                stage('Docker environment diagnostics') { steps {
+                    sh  ''' which python
+                            python -V
+                            echo $PYTHON_VERSION
+                            '''
+                }}
 
-            stage('Docker environment diagnostics') { steps {
-                sh  ''' which python
-                        python -V
-                        echo $PYTHON_VERSION
+                stage('Build environment') {steps {
+                    echo "Building virtualenv"
+                    sh ''' python setup.py install
+                       '''
+                }}
+
+                stage('Static code metrics') { steps {
+                    echo "Raw metrics"
+                    sh  ''' radon raw --json pysine > raw_report.json
+                            radon cc --json pysine > cc_report.json
+                            radon mi --json pysine > mi_report.json
+                            sloccount --duplicates --wide pysine > sloccount.sc
                         '''
-            }}
-
-            stage('Build environment') {steps {
-                echo "Building virtualenv"
-                sh ''' python setup.py install
-                   '''
-            }}
-
-            stage('Static code metrics') { steps {
-                echo "Raw metrics"
-                sh  ''' radon raw --json pysine > raw_report.json
-                        radon cc --json pysine > cc_report.json
-                        radon mi --json pysine > mi_report.json
-                        sloccount --duplicates --wide pysine > sloccount.sc
-                    '''
-                echo "Test coverage"
-                sh  ''' coverage run pysine 1 1 2 3
-                        python -m coverage xml -o reports/coverage.xml
-                    '''
-                echo "Style check"
-                sh  ''' pylint pysine || true
-                    '''
-            } post{ always{ step(
-                [ $class: 'CoberturaPublisher',
-                           autoUpdateHealth: false,
-                           autoUpdateStability: false,
-                           coberturaReportFile: 'reports/coverage.xml',
-                           failNoReports: false,
-                           failUnhealthy: false,
-                           failUnstable: false,
-                           maxNumberOfBuilds: 10,
-                           onlyStable: false,
-                           sourceEncoding: 'ASCII',
-                           zoomCoverageChart: false])
-            }}}
+                    echo "Test coverage"
+                    sh  ''' coverage run pysine 1 1 2 3
+                            python -m coverage xml -o reports/coverage.xml
+                        '''
+                    echo "Style check"
+                    sh  ''' pylint pysine || true
+                        '''
+                } post{ always{ step(
+                    [ $class: 'CoberturaPublisher',
+                               autoUpdateHealth: false,
+                               autoUpdateStability: false,
+                               coberturaReportFile: 'reports/coverage.xml',
+                               failNoReports: false,
+                               failUnhealthy: false,
+                               failUnstable: false,
+                               maxNumberOfBuilds: 10,
+                               onlyStable: false,
+                               sourceEncoding: 'ASCII',
+                               zoomCoverageChart: false])
+                }}}
         }}
 
         stage('Unit tests') {
