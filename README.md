@@ -12,6 +12,11 @@ This is always useful when no text output is available, for example for
 debugging multi-thread programs or calls to object destructors by Python's
 garbage collector.
 
+## Pre-installation (Linux) hints
+```
+conda uninstall PortAudio
+sudo apt-get install portaudio19-dev
+```
 
 ## Installation
 Either
