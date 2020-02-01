@@ -37,7 +37,7 @@ python setup.py install
 
 From the command line:
 ```
-python -m pysine 440.0 3
+python -m pysine 880.0 3
 ```
 The sound of a 880-Hz sine wave should be heard for a duration of 3 seconds.
 
